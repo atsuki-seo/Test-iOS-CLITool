@@ -10,9 +10,23 @@ import SwiftSyntaxBuilder
 struct TestCLITool: ParsableCommand {
   mutating func run() throws {
     let source = SourceFileSyntax {
-      DeclSyntax("import Foundation")
-      ClassDeclSyntax(name: "SampleModel") {
-        DeclSyntax(#"private let title: String = "Hello""#)
+      ImportDeclSyntax(
+        path: ImportPathComponentListSyntax([ImportPathComponentSyntax(name: "Foundation")])
+      )
+      ClassDeclSyntax(
+        modifiers: [DeclModifierSyntax(name: TokenSyntax(stringLiteral: "@objc")), DeclModifierSyntax(name: .keyword(.public))],
+        name: "SampleModel"
+      ) {
+        VariableDeclSyntax(
+          modifiers: [DeclModifierSyntax(name: .keyword(.private))],
+          bindingSpecifier: .keyword(.let)
+        ) {
+          PatternBindingSyntax(
+            pattern: PatternSyntax("title"),
+            typeAnnotation: TypeAnnotationSyntax(type: TypeSyntax("String")),
+            initializer: InitializerClauseSyntax(value: StringLiteralExprSyntax(content: "Hello"))
+          )
+        }
       }
     }
 
