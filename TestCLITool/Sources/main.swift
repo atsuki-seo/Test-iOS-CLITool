@@ -11,10 +11,8 @@ struct TestCLITool: ParsableCommand {
   mutating func run() throws {
     let source = SourceFileSyntax {
       DeclSyntax("import Foundation")
-      for i in 0...100 {
-        ClassDeclSyntax(name: "SampleModel") {
-          DeclSyntax(#"private let title: String = "Hello""#)
-        }
+      ClassDeclSyntax(name: "SampleModel") {
+        DeclSyntax(#"private let title: String = "Hello""#)
       }
     }
 
