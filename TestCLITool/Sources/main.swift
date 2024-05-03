@@ -14,7 +14,10 @@ struct TestCLITool: ParsableCommand {
         path: ImportPathComponentListSyntax([ImportPathComponentSyntax(name: "Foundation")])
       )
       ClassDeclSyntax(
-        modifiers: [DeclModifierSyntax(name: TokenSyntax(stringLiteral: "@objc")), DeclModifierSyntax(name: .keyword(.public))],
+        modifiers: [
+          DeclModifierSyntax(name: .atSignToken(leadingTrivia: .newlines(2), trailingTrivia: .unexpectedText("objcMembers").appending(.newline), presence: .present)),
+          DeclModifierSyntax(name: .keyword(.public)),
+        ],
         name: "SampleModel"
       ) {
         VariableDeclSyntax(
